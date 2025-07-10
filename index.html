@@ -6,6 +6,7 @@
     <title>Infografis: Analisis & Visualisasi Data Real-Time di AWS</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
@@ -53,6 +54,13 @@
          .flow-card:hover {
             transform: translateY(-5px);
         }
+        .info-card {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .info-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800">
@@ -70,12 +78,12 @@
 
         <section id="paradigm-shift" class="mb-20">
              <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                <div class="bg-white p-8 rounded-xl shadow-lg border border-slate-200">
+                <div class="bg-white p-8 rounded-xl shadow-lg border border-slate-200 info-card">
                     <h3 class="text-2xl font-bold text-red-600 mb-4">Model Tradisional: Pemrosesan Batch</h3>
                     <p class="text-slate-600 mb-4">Data dikumpulkan dari waktu ke waktu, menyebabkan penundaan signifikan antara peristiwa dan wawasan. Ini menciptakan "celah data" yang menghambat pengambilan keputusan yang gesit.</p>
                     <div class="text-5xl font-extrabold text-red-500 text-center p-6 bg-red-50 rounded-lg">Laten > Jam/Hari</div>
                 </div>
-                <div class="bg-white p-8 rounded-xl shadow-lg border-2 border-teal-500">
+                <div class="bg-white p-8 rounded-xl shadow-lg border-2 border-teal-500 info-card">
                     <h3 class="text-2xl font-bold text-teal-600 mb-4">Model Modern: Pemrosesan Real-Time</h3>
                     <p class="text-slate-600 mb-4">Data diproses secara terus-menerus saat masuk, memungkinkan tindakan segera, personalisasi, dan deteksi anomali. Nilai bisnis dimaksimalkan saat data masih segar.</p>
                     <div class="text-5xl font-extrabold text-teal-500 text-center p-6 bg-teal-50 rounded-lg">Laten < 1 Detik</div>
@@ -87,22 +95,22 @@
             <h2 class="text-3xl font-bold mb-4">Anatomi Pipeline Data Real-Time AWS</h2>
             <p class="max-w-2xl mx-auto text-slate-600 mb-12">AWS menyediakan rangkaian layanan terkelola untuk setiap tahap siklus hidup data streaming, dari ingesti hingga visualisasi.</p>
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200">
+                <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200 info-card">
                     <div class="text-5xl mb-3">📥</div>
                     <h3 class="text-xl font-bold text-teal-700">1. Ingesti</h3>
                     <p class="text-sm text-slate-500">Titik masuk untuk data streaming dari berbagai sumber.</p>
                 </div>
-                <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200">
+                <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200 info-card">
                     <div class="text-5xl mb-3">⚙️</div>
                     <h3 class="text-xl font-bold text-teal-700">2. Pemrosesan</h3>
                     <p class="text-sm text-slate-500">Transformasi data mentah menjadi wawasan yang dapat ditindaklanjuti.</p>
                 </div>
-                <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200">
+                <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200 info-card">
                      <div class="text-5xl mb-3">🗄️</div>
                     <h3 class="text-xl font-bold text-teal-700">3. Penyimpanan</h3>
                     <p class="text-sm text-slate-500">Menyimpan data yang telah diproses untuk akses di masa mendatang.</p>
                 </div>
-                <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200">
+                <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200 info-card">
                     <div class="text-5xl mb-3">📊</div>
                     <h3 class="text-xl font-bold text-teal-700">4. Visualisasi</h3>
                     <p class="text-sm text-slate-500">Menyajikan wawasan kepada pengguna melalui dasbor.</p>
@@ -113,17 +121,19 @@
         <section id="ingestion" class="mb-20">
             <h2 class="text-3xl font-bold text-center mb-12">Lapisan Ingesti: Memilih Pintu Depan yang Tepat</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="bg-white p-6 rounded-lg shadow-lg border border-slate-200">
+                <div class="bg-white p-6 rounded-lg shadow-lg border border-slate-200 info-card">
                     <h3 class="text-2xl font-bold text-center mb-4 text-sky-700">Kinesis Data Streams</h3>
                     <p class="text-center text-sm text-slate-500 mb-6">Untuk aplikasi kustom yang membutuhkan fleksibilitas maksimum dan latensi terendah.</p>
                     <div class="chart-container"><canvas id="kinesisComparisonChart"></canvas></div>
                     <p class="mt-4 text-sm text-slate-600"><strong>Kasus Penggunaan Utama:</strong> Papan peringkat game langsung, deteksi penipuan, backend layanan mikro berbasis peristiwa.</p>
+                    <p class="text-xs text-center text-slate-500 mt-4">Sumber: Analisis komparatif berdasarkan Dokumentasi AWS.</p>
                 </div>
-                <div class="bg-white p-6 rounded-lg shadow-lg border border-slate-200">
+                <div class="bg-white p-6 rounded-lg shadow-lg border border-slate-200 info-card">
                     <h3 class="text-2xl font-bold text-center mb-4 text-amber-700">Data Firehose</h3>
                     <p class="text-center text-sm text-slate-500 mb-6">Untuk pengiriman data yang disederhanakan dan otomatis ke tujuan analitik.</p>
                      <div class="chart-container"><canvas id="firehoseComparisonChart"></canvas></div>
                      <p class="mt-4 text-sm text-slate-600"><strong>Kasus Penggunaan Utama:</strong> Mengisi data lake di S3, memuat log ke OpenSearch, mengarsipkan data streaming.</p>
+                     <p class="text-xs text-center text-slate-500 mt-4">Sumber: Analisis komparatif berdasarkan Dokumentasi AWS.</p>
                 </div>
             </div>
         </section>
@@ -131,17 +141,19 @@
         <section id="processing" class="mb-20">
             <h2 class="text-3xl font-bold text-center mb-12">Lapisan Pemrosesan: Jantung Analitik</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-                 <div class="bg-white p-6 rounded-lg shadow-lg border border-slate-200">
+                 <div class="bg-white p-6 rounded-lg shadow-lg border border-slate-200 info-card">
                     <h3 class="text-2xl font-bold text-center mb-4 text-indigo-700">AWS Lambda</h3>
                     <p class="text-center text-sm text-slate-500 mb-6">Pemrosesan tanpa server, berbasis peristiwa, dan *stateless* untuk tugas-tugas sederhana.</p>
                     <div class="chart-container"><canvas id="lambdaChart"></canvas></div>
                     <p class="mt-4 text-sm text-slate-600"><strong>Karakteristik:</strong> Penskalaan otomatis, bayar-per-pemanggilan, ideal untuk penyaringan dan pengayaan catatan tunggal. Setiap pemanggilan bersifat independen dan tidak memiliki memori peristiwa masa lalu.</p>
+                    <p class="text-xs text-center text-slate-500 mt-4">Sumber: Analisis komparatif berdasarkan Dokumentasi AWS.</p>
                 </div>
-                <div class="bg-white p-6 rounded-lg shadow-lg border border-slate-200">
+                <div class="bg-white p-6 rounded-lg shadow-lg border border-slate-200 info-card">
                     <h3 class="text-2xl font-bold text-center mb-4 text-fuchsia-700">Amazon Managed Service for Apache Flink</h3>
                     <p class="text-center text-sm text-slate-500 mb-6">Pemrosesan stream *stateful* yang kuat untuk analitik kompleks.</p>
                      <div class="chart-container"><canvas id="flinkChart"></canvas></div>
                     <p class="mt-4 text-sm text-slate-600"><strong>Karakteristik:</strong> Mempertahankan status (memori) di seluruh peristiwa, memungkinkan analitik time-series yang canggih, deteksi anomali, dan pemrosesan *exactly-once*.</p>
+                    <p class="text-xs text-center text-slate-500 mt-4">Sumber: Analisis komparatif berdasarkan Dokumentasi AWS.</p>
                 </div>
             </div>
         </section>
@@ -150,7 +162,7 @@
             <h2 class="text-3xl font-bold text-center mb-12">Arsitektur Referensi: Menyatukan Semuanya</h2>
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
 
-                <div class="bg-white p-6 rounded-lg shadow-lg border border-slate-200">
+                <div class="bg-white p-6 rounded-lg shadow-lg border border-slate-200 info-card">
                     <h3 class="text-xl font-bold text-center mb-4">Pola 1: Analitik Log Tanpa Server</h3>
                     <p class="text-sm text-center text-slate-500 mb-6">Ideal untuk log web atau clickstream.</p>
                     <div class="space-y-2">
@@ -171,7 +183,7 @@
                     </div>
                 </div>
 
-                <div class="bg-white p-6 rounded-lg shadow-lg border-2 border-teal-500">
+                <div class="bg-white p-6 rounded-lg shadow-lg border-2 border-teal-500 info-card">
                     <h3 class="text-xl font-bold text-center mb-4">Pola 2: Analitik IoT Stateful</h3>
                     <p class="text-sm text-center text-slate-500 mb-6">Untuk pemeliharaan prediktif dan pemantauan.</p>
                      <div class="space-y-2">
@@ -194,7 +206,7 @@
                     </div>
                 </div>
 
-                <div class="bg-white p-6 rounded-lg shadow-lg border border-slate-200">
+                <div class="bg-white p-6 rounded-lg shadow-lg border border-slate-200 info-card">
                     <h3 class="text-xl font-bold text-center mb-4">Pola 3: Dasbor BI Near-Real-Time</h3>
                      <p class="text-sm text-center text-slate-500 mb-6">Untuk KPI bisnis yang up-to-date.</p>
                      <div class="space-y-2">
@@ -210,6 +222,7 @@
                     </div>
                 </div>
             </div>
+            <p class="text-xs text-center text-slate-500 mt-8">Sumber: Pola Arsitektur Referensi Umum AWS.</p>
         </section>
         
         <footer class="text-center mt-20 pt-8 border-t border-slate-200">
@@ -241,6 +254,8 @@
     </div>
 
     <script>
+        Chart.register(ChartDataLabels);
+
         const tooltipTitleCallback = function(tooltipItems) {
             const item = tooltipItems[0];
             let label = item.chart.data.labels[item.dataIndex];
@@ -340,8 +355,27 @@
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    legend: { position: 'bottom' },
-                    tooltip: { callbacks: { title: tooltipTitleCallback } }
+                    legend: { 
+                        position: 'bottom',
+                        labels: {
+                            padding: 25,
+                            boxWidth: 12,
+                            font: { size: 12 }
+                        }
+                    },
+                    tooltip: { callbacks: { title: tooltipTitleCallback } },
+                    datalabels: {
+                        formatter: (value, ctx) => {
+                            let sum = ctx.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                            let percentage = (value * 100 / sum).toFixed(0) + "%";
+                            return percentage;
+                        },
+                        color: '#fff',
+                        font: {
+                            weight: 'bold',
+                            size: 16
+                        }
+                    }
                 }
             }
         });
@@ -349,7 +383,7 @@
         new Chart(document.getElementById('flinkChart'), {
             type: 'doughnut',
             data: {
-                labels: [wrapLabel('Manajemen Status Native (Stateful)'), 'Analitik Kompleks', wrapLabel('Throughput Tinggi Berkelanjutan')],
+                labels: ['Manajemen Native Status (Stateful)', 'Analitik Kompleks', 'Throughput tinggi'],
                 datasets: [{
                     data: [50, 30, 20],
                     backgroundColor: ['#c026d3', '#d946ef', '#f0abfc'],
@@ -360,8 +394,27 @@
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    legend: { position: 'bottom' },
-                    tooltip: { callbacks: { title: tooltipTitleCallback } }
+                    legend: { 
+                        position: 'bottom',
+                        labels: {
+                            padding: 25,
+                            boxWidth: 12,
+                            font: { size: 12 }
+                        }
+                    },
+                    tooltip: { callbacks: { title: tooltipTitleCallback } },
+                    datalabels: {
+                        formatter: (value, ctx) => {
+                            let sum = ctx.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                            let percentage = (value * 100 / sum).toFixed(0) + "%";
+                            return percentage;
+                        },
+                        color: '#fff',
+                        font: {
+                            weight: 'bold',
+                            size: 16
+                        }
+                    }
                 }
             }
         });
