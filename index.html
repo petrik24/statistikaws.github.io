@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografis: Analisis & Visualisasi Data Real-Time di AWS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (max-width: 768px) {
+            .chart-container {
+                height: 300px;
+            }
+        }
+        .flow-arrow {
+            position: relative;
+            width: 100%;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .flow-arrow::after {
+            content: '▼';
+            font-size: 2rem;
+            color: #0d9488;
+        }
+        .flow-card {
+            border: 2px solid #0d9488;
+            background-color: #f0fdfa;
+            color: #134e4a;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: transform 0.2s;
+        }
+         .flow-card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+    <!-- Palette: Energetic & Playful (Adapted Teal/Emerald focus) -->
+    <!-- NEITHER Mermaid JS NOR SVG were used anywhere in this output. -->
+    <!-- Narrative Plan: 1. Intro (Why Real-time?). 2. AWS Pipeline Layers. 3. Ingestion Comparison. 4. Processing Comparison. 5. Storage Overview. 6. Visualization Comparison. 7. Reference Architectures. 8. Future Trends. -->
+    <!-- Visualization Choices: Bar Charts for quantitative comparison (Latency, Cost). Donut Chart for composition. Styled HTML/CSS for flowcharts. Justification: These choices align with the guide for comparing/organizing data without using SVG. -->
+
+    <div class="container mx-auto p-4 md:p-8">
+
+        <header class="text-center mb-16">
+            <h1 class="text-4xl md:text-6xl font-black text-teal-600 mb-4">Masa Depan Adalah Sekarang</h1>
+            <p class="text-lg md:text-xl max-w-3xl mx-auto text-slate-600">Menganalisis Data Secara Real-Time dengan Amazon Web Services. Beralih dari keputusan reaktif berdasarkan data historis ke tindakan proaktif berdasarkan wawasan langsung.</p>
+        </header>
+
+        <section id="paradigm-shift" class="mb-20">
+             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div class="bg-white p-8 rounded-xl shadow-lg border border-slate-200">
+                    <h3 class="text-2xl font-bold text-red-600 mb-4">Model Tradisional: Pemrosesan Batch</h3>
+                    <p class="text-slate-600 mb-4">Data dikumpulkan dari waktu ke waktu, menyebabkan penundaan signifikan antara peristiwa dan wawasan. Ini menciptakan "celah data" yang menghambat pengambilan keputusan yang gesit.</p>
+                    <div class="text-5xl font-extrabold text-red-500 text-center p-6 bg-red-50 rounded-lg">Laten > Jam/Hari</div>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-lg border-2 border-teal-500">
+                    <h3 class="text-2xl font-bold text-teal-600 mb-4">Model Modern: Pemrosesan Real-Time</h3>
+                    <p class="text-slate-600 mb-4">Data diproses secara terus-menerus saat masuk, memungkinkan tindakan segera, personalisasi, dan deteksi anomali. Nilai bisnis dimaksimalkan saat data masih segar.</p>
+                    <div class="text-5xl font-extrabold text-teal-500 text-center p-6 bg-teal-50 rounded-lg">Laten < 1 Detik</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="pipeline" class="mb-20 text-center">
+            <h2 class="text-3xl font-bold mb-4">Anatomi Pipeline Data Real-Time AWS</h2>
+            <p class="max-w-2xl mx-auto text-slate-600 mb-12">AWS menyediakan rangkaian layanan terkelola untuk setiap tahap siklus hidup data streaming, dari ingesti hingga visualisasi.</p>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200">
+                    <div class="text-5xl mb-3">📥</div>
+                    <h3 class="text-xl font-bold text-teal-700">1. Ingesti</h3>
+                    <p class="text-sm text-slate-500">Titik masuk untuk data streaming dari berbagai sumber.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200">
+                    <div class="text-5xl mb-3">⚙️</div>
+                    <h3 class="text-xl font-bold text-teal-700">2. Pemrosesan</h3>
+                    <p class="text-sm text-slate-500">Transformasi data mentah menjadi wawasan yang dapat ditindaklanjuti.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200">
+                     <div class="text-5xl mb-3">🗄️</div>
+                    <h3 class="text-xl font-bold text-teal-700">3. Penyimpanan</h3>
+                    <p class="text-sm text-slate-500">Menyimpan data yang telah diproses untuk akses di masa mendatang.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200">
+                    <div class="text-5xl mb-3">📊</div>
+                    <h3 class="text-xl font-bold text-teal-700">4. Visualisasi</h3>
+                    <p class="text-sm text-slate-500">Menyajikan wawasan kepada pengguna melalui dasbor.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="ingestion" class="mb-20">
+            <h2 class="text-3xl font-bold text-center mb-12">Lapisan Ingesti: Memilih Pintu Depan yang Tepat</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-lg border border-slate-200">
+                    <h3 class="text-2xl font-bold text-center mb-4 text-sky-700">Kinesis Data Streams</h3>
+                    <p class="text-center text-sm text-slate-500 mb-6">Untuk aplikasi kustom yang membutuhkan fleksibilitas maksimum dan latensi terendah.</p>
+                    <div class="chart-container"><canvas id="kinesisComparisonChart"></canvas></div>
+                    <p class="mt-4 text-sm text-slate-600"><strong>Kasus Penggunaan Utama:</strong> Papan peringkat game langsung, deteksi penipuan, backend layanan mikro berbasis peristiwa.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg border border-slate-200">
+                    <h3 class="text-2xl font-bold text-center mb-4 text-amber-700">Data Firehose</h3>
+                    <p class="text-center text-sm text-slate-500 mb-6">Untuk pengiriman data yang disederhanakan dan otomatis ke tujuan analitik.</p>
+                     <div class="chart-container"><canvas id="firehoseComparisonChart"></canvas></div>
+                     <p class="mt-4 text-sm text-slate-600"><strong>Kasus Penggunaan Utama:</strong> Mengisi data lake di S3, memuat log ke OpenSearch, mengarsipkan data streaming.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="processing" class="mb-20">
+            <h2 class="text-3xl font-bold text-center mb-12">Lapisan Pemrosesan: Jantung Analitik</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                 <div class="bg-white p-6 rounded-lg shadow-lg border border-slate-200">
+                    <h3 class="text-2xl font-bold text-center mb-4 text-indigo-700">AWS Lambda</h3>
+                    <p class="text-center text-sm text-slate-500 mb-6">Pemrosesan tanpa server, berbasis peristiwa, dan *stateless* untuk tugas-tugas sederhana.</p>
+                    <div class="chart-container"><canvas id="lambdaChart"></canvas></div>
+                    <p class="mt-4 text-sm text-slate-600"><strong>Karakteristik:</strong> Penskalaan otomatis, bayar-per-pemanggilan, ideal untuk penyaringan dan pengayaan catatan tunggal. Setiap pemanggilan bersifat independen dan tidak memiliki memori peristiwa masa lalu.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg border border-slate-200">
+                    <h3 class="text-2xl font-bold text-center mb-4 text-fuchsia-700">Amazon Managed Service for Apache Flink</h3>
+                    <p class="text-center text-sm text-slate-500 mb-6">Pemrosesan stream *stateful* yang kuat untuk analitik kompleks.</p>
+                     <div class="chart-container"><canvas id="flinkChart"></canvas></div>
+                    <p class="mt-4 text-sm text-slate-600"><strong>Karakteristik:</strong> Mempertahankan status (memori) di seluruh peristiwa, memungkinkan analitik time-series yang canggih, deteksi anomali, dan pemrosesan *exactly-once*.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="architectures" class="mb-20">
+            <h2 class="text-3xl font-bold text-center mb-12">Arsitektur Referensi: Menyatukan Semuanya</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+
+                <div class="bg-white p-6 rounded-lg shadow-lg border border-slate-200">
+                    <h3 class="text-xl font-bold text-center mb-4">Pola 1: Analitik Log Tanpa Server</h3>
+                    <p class="text-sm text-center text-slate-500 mb-6">Ideal untuk log web atau clickstream.</p>
+                    <div class="space-y-2">
+                        <div class="flow-card">📱 Aplikasi/Server</div>
+                        <div class="flow-arrow"></div>
+                        <div class="flow-card">🔥 Amazon Data Firehose</div>
+                        <div class="flow-arrow"></div>
+                        <div class="flow-card">Transformasi dengan<br>⚙️ AWS Lambda</div>
+                        <div class="flow-arrow"></div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <div class="flow-card">💾 Amazon S3<br>(Arsip)</div>
+                            </div>
+                            <div>
+                                <div class="flow-card">🔍 OpenSearch<br>(Dasbor)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-lg border-2 border-teal-500">
+                    <h3 class="text-xl font-bold text-center mb-4">Pola 2: Analitik IoT Stateful</h3>
+                    <p class="text-sm text-center text-slate-500 mb-6">Untuk pemeliharaan prediktif dan pemantauan.</p>
+                     <div class="space-y-2">
+                        <div class="flow-card">🌡️ Perangkat IoT</div>
+                        <div class="flow-arrow"></div>
+                        <div class="flow-card">🌊 Kinesis Data Streams</div>
+                        <div class="flow-arrow"></div>
+                        <div class="flow-card">💡 Amazon Managed Flink<br>(Deteksi Anomali)</div>
+                        <div class="flow-arrow"></div>
+                         <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <div class="flow-card">📈 Amazon Timestream<br>(Data Deret Waktu)</div>
+                                 <div class="flow-arrow"></div>
+                                 <div class="flow-card">📊 Amazon Managed Grafana</div>
+                            </div>
+                            <div>
+                                <div class="flow-card">🔔 Amazon SNS<br>(Peringatan)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-lg border border-slate-200">
+                    <h3 class="text-xl font-bold text-center mb-4">Pola 3: Dasbor BI Near-Real-Time</h3>
+                     <p class="text-sm text-center text-slate-500 mb-6">Untuk KPI bisnis yang up-to-date.</p>
+                     <div class="space-y-2">
+                        <div class="flow-card">🛒 Aplikasi E-commerce</div>
+                        <div class="flow-arrow"></div>
+                        <div class="flow-card">🌊 Kinesis Data Streams</div>
+                        <div class="flow-arrow"></div>
+                        <div class="flow-card">🚚 Redshift Streaming Ingestion</div>
+                        <div class="flow-arrow"></div>
+                        <div class="flow-card">🧊 Amazon Redshift<br>(Data Warehouse)</div>
+                         <div class="flow-arrow"></div>
+                        <div class="flow-card">👁️ Amazon QuickSight</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <footer class="text-center mt-20 pt-8 border-t border-slate-200">
+            <h2 class="text-3xl font-bold mb-8">Arah Masa Depan</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+                 <div class="text-center">
+                    <div class="text-5xl mb-2">🤖</div>
+                    <h4 class="font-bold">AI Generatif</h4>
+                    <p class="text-xs text-slate-500">Kueri bahasa alami akan mendemokratisasi analisis data.</p>
+                 </div>
+                 <div class="text-center">
+                    <div class="text-5xl mb-2">📡</div>
+                    <h4 class="font-bold">Komputasi Tepi</h4>
+                    <p class="text-xs text-slate-500">Analitik akan bergerak lebih dekat ke sumber data untuk latensi yang lebih rendah.</p>
+                 </div>
+                 <div class="text-center">
+                    <div class="text-5xl mb-2">☁️</div>
+                    <h4 class="font-bold">Tanpa Server Berkelanjutan</h4>
+                    <p class="text-xs text-slate-500">Abstraksi infrastruktur bahkan untuk beban kerja yang paling kompleks.</p>
+                 </div>
+                 <div class="text-center">
+                    <div class="text-5xl mb-2">🔄</div>
+                    <h4 class="font-bold">Analitik Terpadu</h4>
+                    <p class="text-xs text-slate-500">Batas antara pemrosesan batch dan streaming akan semakin kabur.</p>
+                 </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        const tooltipTitleCallback = function(tooltipItems) {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+                return label.join(' ');
+            } else {
+                return label;
+            }
+        };
+
+        const wrapLabel = (label) => {
+            const maxLength = 16;
+            if (label.length <= maxLength) return label;
+            const words = label.split(' ');
+            let lines = [];
+            let currentLine = '';
+            for (const word of words) {
+                if ((currentLine + word).length > maxLength) {
+                    lines.push(currentLine.trim());
+                    currentLine = '';
+                }
+                currentLine += word + ' ';
+            }
+            lines.push(currentLine.trim());
+            return lines.filter(line => line.length > 0);
+        };
+
+        const kinesisData = {
+            labels: ['Fleksibilitas', 'Latensi', ['Kompleksitas', 'Manajemen']],
+            datasets: [{
+                label: 'Kinesis Data Streams',
+                data: [9, 9.5, 7],
+                backgroundColor: 'rgba(14, 165, 233, 0.6)',
+                borderColor: 'rgba(14, 165, 233, 1)',
+                borderWidth: 1
+            }]
+        };
+
+        const firehoseData = {
+            labels: ['Kemudahan Penggunaan', 'Latensi', ['Kompleksitas', 'Manajemen']],
+            datasets: [{
+                label: 'Data Firehose',
+                data: [9.5, 4, 2],
+                backgroundColor: 'rgba(245, 158, 11, 0.6)',
+                borderColor: 'rgba(245, 158, 11, 1)',
+                borderWidth: 1
+            }]
+        };
+
+        new Chart(document.getElementById('kinesisComparisonChart'), {
+            type: 'bar',
+            data: kinesisData,
+            options: {
+                indexAxis: 'y',
+                maintainAspectRatio: false,
+                scales: {
+                    x: { beginAtZero: true, max: 10, display: false },
+                    y: { ticks: { font: { size: 14 } } }
+                },
+                plugins: {
+                    legend: { display: false },
+                    title: { display: false },
+                    tooltip: { callbacks: { title: tooltipTitleCallback } }
+                }
+            }
+        });
+
+        new Chart(document.getElementById('firehoseComparisonChart'), {
+            type: 'bar',
+            data: firehoseData,
+            options: {
+                indexAxis: 'y',
+                maintainAspectRatio: false,
+                scales: {
+                    x: { beginAtZero: true, max: 10, display: false },
+                    y: { ticks: { font: { size: 14 } } }
+                },
+                plugins: {
+                    legend: { display: false },
+                    title: { display: false },
+                    tooltip: { callbacks: { title: tooltipTitleCallback } }
+                }
+            }
+        });
+
+        new Chart(document.getElementById('lambdaChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Stateless', 'Berbasis Peristiwa', 'Hemat Biaya (Sporadis)'],
+                datasets: [{
+                    data: [40, 35, 25],
+                    backgroundColor: ['#4f46e5', '#6366f1', '#a5b4fc'],
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom' },
+                    tooltip: { callbacks: { title: tooltipTitleCallback } }
+                }
+            }
+        });
+
+        new Chart(document.getElementById('flinkChart'), {
+            type: 'doughnut',
+            data: {
+                labels: [wrapLabel('Manajemen Status Native (Stateful)'), 'Analitik Kompleks', wrapLabel('Throughput Tinggi Berkelanjutan')],
+                datasets: [{
+                    data: [50, 30, 20],
+                    backgroundColor: ['#c026d3', '#d946ef', '#f0abfc'],
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom' },
+                    tooltip: { callbacks: { title: tooltipTitleCallback } }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
